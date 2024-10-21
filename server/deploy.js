@@ -9,7 +9,9 @@ const rows = [2, 1, -1, -2];
 const cols = [-1, 0, 1];
 
 // const SOCKET_IP = 'localhost'
-const SOCKET_IP = '[2a0c:5bc0:40:2e26:d03f:aca2:268a:6292]'
+const SOCKET_IP = '146.169.11.196';
+const PORT = 9083;
+const SPACE = 'DOCluster';
 
 // Function to determine x and y values based on row and column
 function getCoordinates(row, col) {
@@ -38,7 +40,7 @@ function createPayload(row, col, x, y) {
         app: {
             states: {
                 load: {
-                    url: `http://${SOCKET_IP}:3000/?row=${row}&col=${col}`
+                    url: `http://${SOCKET_IP}:${PORT}/?row=${row}&col=${col}`
                 }
             },
             url: "http://gdo-apps.dsi.ic.ac.uk:9080/app/html"
@@ -47,7 +49,7 @@ function createPayload(row, col, x, y) {
         y: y,
         w: WIDTH,
         h: HEIGHT,
-        space: "DOCluster"
+        space: SPACE
     };
 }
 
@@ -59,7 +61,7 @@ const payloads = [
         app: {
             states: {
                 load: {
-                    url: `http://${SOCKET_IP}:3000/tx_fee`
+                    url: `http://${SOCKET_IP}:${PORT}/tx_fee`
                 }
             },
             url: "http://gdo-apps.dsi.ic.ac.uk:9080/app/html"
@@ -68,14 +70,14 @@ const payloads = [
         y: 0,
         w: WIDTH,       
         h: HEIGHT,  
-        space: "DOCluster"  
+        space: SPACE  
     },
     // Line graph of tx rate
     {
         app: {
             states: {
                 load: {
-                    url: `http://${SOCKET_IP}:3000/tx_rate`
+                    url: `http://${SOCKET_IP}:${PORT}/tx_rate`
                 }
             },
             url: "http://gdo-apps.dsi.ic.ac.uk:9080/app/html"
@@ -84,14 +86,14 @@ const payloads = [
         y: HEIGHT,
         w: WIDTH,       
         h: HEIGHT,  
-        space: "DOCluster"  
+        space: SPACE  
     },
     // Histogram of tx value
     {
         app: {
             states: {
                 load: {
-                    url: `http://${SOCKET_IP}:3000/tx_value`
+                    url: `http://${SOCKET_IP}:${PORT}/tx_value`
                 }
             },
             url: "http://gdo-apps.dsi.ic.ac.uk:9080/app/html"
@@ -100,14 +102,14 @@ const payloads = [
         y: 2 * HEIGHT,
         w: WIDTH,       
         h: HEIGHT,  
-        space: "DOCluster"  
+        space: SPACE  
     },
     // Histogram of tx size
     {
         app: {
             states: {
                 load: {
-                    url: `http://${SOCKET_IP}:3000/tx_size`
+                    url: `http://${SOCKET_IP}:${PORT}/tx_size`
                 }
             },
             url: "http://gdo-apps.dsi.ic.ac.uk:9080/app/html"
@@ -116,7 +118,7 @@ const payloads = [
         y: 3 * HEIGHT,
         w: WIDTH,       
         h: HEIGHT,  
-        space: "DOCluster"  
+        space: SPACE  
     }
 ];
 
@@ -154,10 +156,11 @@ function sendApiCall(payload) {
 }
 
 // Send all API calls
-Promise.all(payloads.map(payload => sendApiCall(payload)))
-    .then(() => {
-        console.log('All API calls completed.');
-    })
-    .catch(error => {
-        console.error('Error in processing API calls:', error);
-    });
+// Promise.all(payloads.map(payload => sendApiCall(payload)))
+//     .then(() => {
+//         console.log('All API calls completed.');
+//     })
+//     .catch(error => {
+//         console.error('Error in processing API calls:', error);
+//     });
+console.log(JSON.stringify(payloads, undefined, 2));

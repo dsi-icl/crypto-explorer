@@ -1,0 +1,10 @@
+version: "3"
+services:
+  server:
+    image: "dsi-icl/crypto-explorer:latest"
+    platform: "linux/amd64"
+    ports:
+      - "9083:9083"
+    restart: "on-failure"
+    volumes:
+      - ./.env:/usr/src/app/.env:ro
